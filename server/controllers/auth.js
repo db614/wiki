@@ -99,6 +99,7 @@ router.get('/login/slack', passport.authenticate('slack', { scope: ['identity.ba
 router.get('/login/azure', passport.authenticate('azure_ad_oauth2'))
 router.get('/login/oauth2', passport.authenticate('oauth2'))
 router.get('/login/oidc', passport.authenticate('oidc'))
+router.get('login/saml'),passport.authenticate('saml'))
 
 router.get('/login/ms/callback', passport.authenticate('windowslive', { failureRedirect: '/login', successRedirect: '/' }))
 router.get('/login/google/callback', passport.authenticate('google', { failureRedirect: '/login', successRedirect: '/' }))
@@ -108,6 +109,7 @@ router.get('/login/slack/callback', passport.authenticate('slack', { failureRedi
 router.get('/login/azure/callback', passport.authenticate('azure_ad_oauth2', { failureRedirect: '/login', successRedirect: '/' }))
 router.get('/login/oauth2/callback', passport.authenticate('oauth2', { failureRedirect: '/login', successRedirect: '/' }))
 router.get('/login/oidc/callback', passport.authenticate('oidc', { failureRedirect: '/login', successRedirect: '/' }))
+router.get('login/saml/callback', passport.authenticate('saml', { failureRedirect: '/login', successRedirect: '/'}))
 
 /**
  * Logout

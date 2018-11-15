@@ -113,6 +113,10 @@ auth:
     tokenURL: OPENID_CONNECT_TOKEN_URL
     emailClaim: OPENID_CONNECT_EMAIL_CLAIM_PATH
     usernameClaim: OPENID_CONNECT_USERNAME_CLAIM_PATH
+  saml:
+    enable: false
+    entryPoint: SAML_ENTRYPOINT
+    issuer: SAML_ISSUER
 # ---------------------------------------------------------------------
 # Secret key to use when encrypting sessions
 # ---------------------------------------------------------------------

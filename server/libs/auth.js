@@ -254,6 +254,24 @@ module.exports = function (passport) {
     ))
   }
 
+  //SAML
+
+  if (appconfig.auth.oidc && appconfig.auth.oidc.enabled) {
+    const SamlStrategy = require('passport-saml').Strategy
+    passport.use('saml', new SamlStrategy({
+      callbackURL: appconfig.host + 'login/saml/callback',
+      entryPoint: appconfig.auth.saml.entryPoint,
+      issuer: appconfig.auth.saml.issuer // Think issuer is just a formality to let them know where your request is coming from? Might need some more after this but not sure? Not sure which things to call for the db too.
+    }, (accessToken, refreshToken, profile, cb) => {
+      db.User.processProfile(profile).then((user) => {
+        return cb(null, user) || true
+      }).catch((err) => {
+        return cb(err, null) || true
+      })
+    }
+    ))
+}
+
   // Create users for first-time
 
   db.onReady.then(() => {
