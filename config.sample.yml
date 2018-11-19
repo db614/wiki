@@ -117,6 +117,9 @@ auth:
     enable: false
     entryPoint: SAML_ENTRYPOINT
     issuer: SAML_ISSUER
+    decryptionPvk: C:\example\optional_encryption_key.pem
+    privateCert: C:\example\signing_key.pem
+    cert: C:\example\idp_cert.pem
 # ---------------------------------------------------------------------
 # Secret key to use when encrypting sessions
 # ---------------------------------------------------------------------

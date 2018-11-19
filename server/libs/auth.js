@@ -262,11 +262,13 @@ module.exports = function (passport) {
     passport.use('saml', new SamlStrategy({
       callbackURL: appconfig.host + 'login/saml/callback',
       entryPoint: appconfig.auth.saml.entryPoint,
-      issuer: appconfig.auth.saml.issuer, // Your EntityID
-      privateKey: appconfig.auth.saml.privateKey, //Your private key
-      certificate: appconfig.auth.saml.certificate //The IdP public certificate
+      issuer: appconfig.auth.saml.issuer,
+      decryptionPvk: fs.readFileSync(appconfig.auth.saml.privateKey, 'urf-8'),
+      privateCert: fs.readFileSync(appconfig.auth.saml.privateCert, 'utf-8'),
+      cert: fs.readFileSync(appconfig.auth.saml.certificate, 'utf-8')
     }, (profile, cb) => {
-      let samlProfile = new Saml2js(profile).asobject()
+      let samlProfile = new Saml2js(profile)
+      samlProfile.id = samlProfile.get('mail')
       samlProfile.provider = 'saml'
       db.User.processProfile(samlProfile).then((user) => {
         return cb(null, user) || true
