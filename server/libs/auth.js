@@ -263,7 +263,7 @@ module.exports = function (passport) {
       callbackURL: appconfig.host + 'login/saml/callback',
       entryPoint: appconfig.auth.saml.entryPoint,
       issuer: appconfig.auth.saml.issuer,
-      decryptionPvk: fs.readFileSync(appconfig.auth.saml.privateKey, 'urf-8'),
+      decryptionPvk: fs.readFileSync(appconfig.auth.saml.privateKey, 'utf-8'),
       privateCert: fs.readFileSync(appconfig.auth.saml.privateCert, 'utf-8'),
       cert: fs.readFileSync(appconfig.auth.saml.certificate, 'utf-8')
     }, (profile, cb) => {
