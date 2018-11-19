@@ -266,8 +266,9 @@ module.exports = function (passport) {
       privateKey: appconfig.auth.saml.privateKey, //Your private key
       certificate: appconfig.auth.saml.certificate //The IdP public certificate
     }, (profile, cb) => {
-      let samlProfile =
-      db.User.processProfile(samlprofile).then((user) => {
+      let samlProfile = new Saml2js(profile).asobject()
+      samlProfile.provider = 'saml'
+      db.User.processProfile(samlProfile).then((user) => {
         return cb(null, user) || true
       }).catch((err) => {
         return cb(err, null) || true
